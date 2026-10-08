@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta name="description" content="布告欄記事與運動建議小工具" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <title>長者關懷小幫手</title>
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="app-title">長者關懷小幫手</h1>
+    <p class="app-subtitle">記事布告欄 ‧ 健康動一動 ‧ 佈置小遊戲</p>
+  </header>
+
+  <nav class="tabs-bar" role="tablist" aria-label="功能分頁">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-board" data-tab="board">布告欄</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-exercise" data-tab="exercise">運動建議</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-room" data-tab="room">佈置遊戲</button>
+  </nav>
+
+  <main class="app-main">
+    <section id="panel-board" class="panel active" role="tabpanel" aria-labelledby="tab-board">
+      <form id="note-form" class="note-form" autocomplete="off">
+        <label for="note-input" class="visually-hidden">新增記事</label>
+        <input id="note-input" name="note" type="text" placeholder="輸入記事後按 Enter 或 ＋ 新增" maxlength="120" required />
+        <button type="submit" class="btn btn-primary" aria-label="新增">＋</button>
+      </form>
+      <ul id="note-list" class="note-list" aria-live="polite"></ul>
+      <p id="note-empty" class="empty-hint">目前沒有記事，新增一條吧！</p>
+    </section>
+
+    <section id="panel-exercise" class="panel" role="tabpanel" aria-labelledby="tab-exercise" hidden>
+      <div class="exercise-controls">
+        <label for="exercise-part">想動哪裡？</label>
+        <select id="exercise-part" aria-label="選擇部位">
+          <option value="any">隨機</option>
+          <option value="whole">全身</option>
+          <option value="upper">上半身</option>
+          <option value="lower">下半身</option>
+          <option value="seated">坐著就能做</option>
+        </select>
+        <button id="exercise-pick" class="btn btn-primary" type="button">給我一個建議</button>
+      </div>
+      <div id="exercise-card" class="exercise-card" aria-live="polite">
+        <h3 id="exercise-title">尚未選擇</h3>
+        <p id="exercise-desc">按下「給我一個建議」開始</p>
+        <p id="exercise-meta" class="meta"></p>
+      </div>
+      <details class="exercise-list">
+        <summary>查看全部建議</summary>
+        <ul id="exercise-all"></ul>
+      </details>
+    </section>
+
+    <section id="panel-room" class="panel room-panel" role="tabpanel" aria-labelledby="tab-room" hidden>
+      <div class="room-toolbar">
+        <span class="room-hint">點下方物品加入 · 拖曳擺放 · 拖到垃圾桶移除</span>
+        <button id="room-reset" type="button" class="btn btn-ghost">重置房間</button>
+      </div>
+      <div id="room-area" class="room-area">
+        <div id="trash-area" class="trash-area" aria-hidden="true">🗑️</div>
+      </div>
+      <div id="inventory-panel" class="inventory-panel" aria-label="家具清單"></div>
+      <p id="room-empty" class="empty-hint">房間空空的，點下方物品開始佈置吧！</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="./js/store.js"></script>
+  <script src="./js/board.js"></script>
+  <script src="./js/exercise.js"></script>
+  <script src="./js/room.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
