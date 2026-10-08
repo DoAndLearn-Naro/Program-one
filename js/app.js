@@ -1,27 +1,29 @@
 (() => {
-  const tabBtns = Array.from(document.querySelectorAll('.tab-btn'));
   const panels = {
-    board: document.getElementById('panel-board'),
+    hub:      document.getElementById('panel-hub'),
+    board:    document.getElementById('panel-board'),
     exercise: document.getElementById('panel-exercise'),
-    room: document.getElementById('panel-room')
+    room:     document.getElementById('panel-room')
   };
   const toast = document.getElementById('toast');
 
-  const switchTab = (name) => {
-    tabBtns.forEach((btn) => {
-      const active = btn.dataset.tab === name;
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-selected', active);
-    });
+  const goTo = (view) => {
     Object.entries(panels).forEach(([k, el]) => {
-      const active = k === name;
+      const active = k === view;
       el.classList.toggle('active', active);
       el.hidden = !active;
     });
-    Store.savePrefs({ lastTab: name });
+    document.body.classList.toggle('in-room', view === 'room');
+    Store.savePrefs({ lastView: view });
   };
 
-  tabBtns.forEach((btn) => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+  document.querySelectorAll('.hub-card').forEach((card) => {
+    card.addEventListener('click', () => goTo(card.dataset.view));
+  });
+
+  document.querySelectorAll('[data-go]').forEach((el) => {
+    el.addEventListener('click', () => goTo(el.dataset.go));
+  });
 
   let toastTimer;
   const showToast = (msg) => {
@@ -39,5 +41,5 @@
   }
 
   const prefs = Store.loadPrefs();
-  switchTab(prefs.lastTab || 'board');
+  goTo(prefs.lastView || 'hub');
 })();

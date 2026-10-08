@@ -48,65 +48,128 @@ html, body {
   border: 0;
 }
 
-.app-header {
-  padding: 20px 16px 8px;
-  text-align: center;
-}
-
-.app-title {
-  margin: 0;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
-}
-
-.app-subtitle {
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-.tabs-bar {
-  display: flex;
-  gap: 8px;
-  padding: 12px 16px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 12px 16px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  background: transparent;
-  color: var(--muted);
-  border: 2px solid transparent;
-  border-radius: var(--radius);
-  cursor: pointer;
-  min-height: 48px;
-}
-
-.tab-btn.active {
-  background: var(--primary);
-  color: var(--primary-text);
-}
-
-.tab-btn:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
-}
-
 .app-main {
   padding: 16px;
   max-width: 720px;
   margin: 0 auto;
+  min-height: 100vh;
 }
 
 .panel { display: none; }
 .panel.active { display: block; }
+
+/* ===== Panel header + back arrow ===== */
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  flex: 1;
+}
+
+.back-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+
+.back-arrow:hover,
+.back-arrow:focus-visible {
+  border-color: var(--primary);
+  background: #eff6ff;
+  outline: none;
+}
+
+/* ===== Hub ===== */
+.hub-panel { padding: 8px 0 16px; }
+
+.hub-title {
+  margin: 4px 0 4px;
+  font-size: 1.5rem;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.hub-subtitle {
+  margin: 0 0 20px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.hub-cards {
+  display: grid;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.hub-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text);
+  transition: transform 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+  min-height: 80px;
+}
+
+.hub-card:hover,
+.hub-card:focus-visible {
+  border-color: var(--primary);
+  background: #eff6ff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.hub-card-icon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.hub-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hub-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.hub-card-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
 
 .note-form {
   display: flex;
@@ -299,27 +362,28 @@ html, body {
 .room-panel {
   display: none;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 .room-panel.active { display: flex; }
 
-.room-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+.room-header {
+  flex-shrink: 0;
 }
 
-.room-hint {
-  color: var(--muted);
+.room-header .panel-title { flex: 1; }
+
+.btn-reset {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  min-height: 36px;
   font-size: 0.95rem;
 }
 
 .section-label {
   font-weight: 600;
   color: var(--muted);
-  margin-right: 8px;
+  margin-right: 4px;
+  font-size: 0.9rem;
 }
 
 .bg-section {
@@ -327,6 +391,7 @@ html, body {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 .bg-picker {
@@ -391,6 +456,7 @@ html, body {
   overflow-x: auto;
   padding: 2px;
   scrollbar-width: thin;
+  flex-shrink: 0;
 }
 
 .cat-tab {
@@ -419,6 +485,7 @@ html, body {
   background: #fdf8f6;
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  flex-shrink: 0;
 }
 
 .inventory-row {
@@ -503,6 +570,7 @@ html, body {
   overflow: hidden;
   touch-action: none;
   transition: background-color 0.2s;
+  flex: 0 0 auto;
 }
 
 .room-area.bg-floor::before {
@@ -608,6 +676,7 @@ html, body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 8px 12px;
+  flex-shrink: 0;
 }
 
 .custom-section summary {
@@ -630,4 +699,42 @@ html, body {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+/* ===== 響應式：佈置遊戲占滿手機畫面 ===== */
+@media (max-width: 720px) {
+  body.in-room .app-main {
+    padding: 8px;
+    max-width: none;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+  }
+
+  body.in-room .room-panel.active {
+    flex: 1;
+    height: 100vh;
+    height: 100dvh;
+    gap: 6px;
+  }
+
+  body.in-room .room-area {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  body.in-room .room-header { padding: 0; margin-bottom: 0; }
+  body.in-room .back-arrow   { width: 40px; height: 40px; font-size: 1.2rem; }
+  body.in-room .panel-title  { font-size: 1.05rem; }
+  body.in-room .btn-reset    { padding: 6px 10px; }
+
+  body.in-room .bg-tile      { width: 52px; height: 38px; }
+  body.in-room .cat-tab      { padding: 6px 12px; font-size: 0.9rem; min-height: 36px; }
+  body.in-room .inventory-item { width: 76px; min-height: 80px; padding: 6px 4px; }
+  body.in-room .inventory-item .item-icon { font-size: 1.8rem; }
+  body.in-room .inventory-item .item-thumb { width: 44px; height: 44px; }
+
+  .hub-cards { grid-template-columns: 1fr; }
 }

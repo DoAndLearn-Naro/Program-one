@@ -1,6 +1,7 @@
 const Store = (() => {
   const KEY_NOTES      = 'helper.notes.v1';
-  const KEY_PREFS      = 'helper.prefs.v1';
+  const KEY_PREFS      = 'helper.prefs.v2';
+  const KEY_PREFS_OLD  = 'helper.prefs.v1';
   const KEY_ROOM_OLD   = 'helper.room.v1';
   const KEY_ROOM       = 'helper.room.v2';
 
@@ -12,7 +13,25 @@ const Store = (() => {
   const loadNotes = () => safeParse(localStorage.getItem(KEY_NOTES), []);
   const saveNotes = (notes) => localStorage.setItem(KEY_NOTES, JSON.stringify(notes));
 
-  const loadPrefs = () => safeParse(localStorage.getItem(KEY_PREFS), { lastTab: 'board' });
+  const VALID_VIEWS = ['hub', 'board', 'exercise', 'room'];
+
+  const loadPrefs = () => {
+    const cur = safeParse(localStorage.getItem(KEY_PREFS), null);
+    if (cur && typeof cur === 'object') {
+      return {
+        lastView: VALID_VIEWS.includes(cur.lastView) ? cur.lastView : 'hub'
+      };
+    }
+    const old = safeParse(localStorage.getItem(KEY_PREFS_OLD), null);
+    if (old && old.lastTab) {
+      const mapped = old.lastTab === 'board' ? 'board'
+        : old.lastTab === 'exercise' ? 'exercise'
+        : old.lastTab === 'room' ? 'room' : 'hub';
+      return { lastView: mapped };
+    }
+    return { lastView: 'hub' };
+  };
+
   const savePrefs = (prefs) => localStorage.setItem(KEY_PREFS, JSON.stringify(prefs));
 
   const defaultRoomState = () => ({

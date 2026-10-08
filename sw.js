@@ -1,4 +1,4 @@
-const CACHE = 'helper-v3';
+const CACHE = 'helper-v4';
 const ASSETS = [
   './',
   './index.html',

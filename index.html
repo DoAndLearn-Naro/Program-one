@@ -12,19 +12,40 @@
   <title>長者關懷小幫手</title>
 </head>
 <body>
-  <header class="app-header">
-    <h1 class="app-title">長者關懷小幫手</h1>
-    <p class="app-subtitle">記事布告欄 ‧ 健康動一動 ‧ 佈置小遊戲</p>
-  </header>
-
-  <nav class="tabs-bar" role="tablist" aria-label="功能分頁">
-    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-board" data-tab="board">布告欄</button>
-    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-exercise" data-tab="exercise">運動建議</button>
-    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-room" data-tab="room">佈置遊戲</button>
-  </nav>
-
   <main class="app-main">
-    <section id="panel-board" class="panel active" role="tabpanel" aria-labelledby="tab-board">
+    <section id="panel-hub" class="panel hub-panel active" role="region" aria-label="首頁">
+      <h1 class="hub-title">長者關懷小幫手</h1>
+      <p class="hub-subtitle">記事布告欄 ‧ 健康動一動 ‧ 佈置小遊戲</p>
+      <div class="hub-cards">
+        <button class="hub-card" type="button" data-view="board">
+          <span class="hub-card-icon" aria-hidden="true">📋</span>
+          <span class="hub-card-text">
+            <span class="hub-card-title">布告欄</span>
+            <span class="hub-card-desc">記事與提醒</span>
+          </span>
+        </button>
+        <button class="hub-card" type="button" data-view="exercise">
+          <span class="hub-card-icon" aria-hidden="true">🏃</span>
+          <span class="hub-card-text">
+            <span class="hub-card-title">運動建議</span>
+            <span class="hub-card-desc">健康動一動</span>
+          </span>
+        </button>
+        <button class="hub-card" type="button" data-view="room">
+          <span class="hub-card-icon" aria-hidden="true">🏠</span>
+          <span class="hub-card-text">
+            <span class="hub-card-title">佈置遊戲</span>
+            <span class="hub-card-desc">設計我的家</span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <section id="panel-board" class="panel board-panel" role="region" aria-label="布告欄" hidden>
+      <header class="panel-header">
+        <button class="back-arrow" type="button" data-go="hub" aria-label="返回首頁">←</button>
+        <h2 class="panel-title">布告欄</h2>
+      </header>
       <form id="note-form" class="note-form" autocomplete="off">
         <label for="note-input" class="visually-hidden">新增記事</label>
         <input id="note-input" name="note" type="text" placeholder="輸入記事後按 Enter 或 ＋ 新增" maxlength="120" required />
@@ -34,7 +55,11 @@
       <p id="note-empty" class="empty-hint">目前沒有記事，新增一條吧！</p>
     </section>
 
-    <section id="panel-exercise" class="panel" role="tabpanel" aria-labelledby="tab-exercise" hidden>
+    <section id="panel-exercise" class="panel exercise-panel" role="region" aria-label="運動建議" hidden>
+      <header class="panel-header">
+        <button class="back-arrow" type="button" data-go="hub" aria-label="返回首頁">←</button>
+        <h2 class="panel-title">運動建議</h2>
+      </header>
       <div class="exercise-controls">
         <label for="exercise-part">想動哪裡？</label>
         <select id="exercise-part" aria-label="選擇部位">
@@ -57,14 +82,15 @@
       </details>
     </section>
 
-    <section id="panel-room" class="panel room-panel" role="tabpanel" aria-labelledby="tab-room" hidden>
-      <div class="room-toolbar">
-        <span class="room-hint">點選道具：拖曳可移動、➕➖可縮放、🗑 可刪除</span>
-        <button id="room-reset" type="button" class="btn btn-ghost">重置房間</button>
-      </div>
+    <section id="panel-room" class="panel room-panel" role="region" aria-label="佈置遊戲" hidden>
+      <header class="panel-header room-header">
+        <button class="back-arrow" type="button" data-go="hub" aria-label="返回首頁">←</button>
+        <h2 class="panel-title">佈置遊戲</h2>
+        <button id="room-reset" type="button" class="btn btn-ghost btn-reset">重置</button>
+      </header>
 
       <div class="bg-section">
-        <span class="section-label">背景：</span>
+        <span class="section-label">背景</span>
         <div class="bg-picker" id="bg-picker" role="radiogroup" aria-label="背景選擇"></div>
       </div>
 
